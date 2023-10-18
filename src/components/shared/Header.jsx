@@ -1,6 +1,6 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../providers/AuthProviders';
 import { toast } from 'react-toastify';
 
@@ -8,7 +8,11 @@ export const Header = ({ className }) => {
   const [navOpen, setNavOpen] = useState(false);
   const { user, signOutUser } = useContext(AuthContext);
 
-  let location = useLocation()
+  let location = useLocation();
+
+  useEffect(() => {
+    setNavOpen(false)
+  }, [location])
 
   const handleSignOut = () => {
     signOutUser()
@@ -17,7 +21,7 @@ export const Header = ({ className }) => {
   };
 
   return (
-    <header className={`py-6 md:px-10 px-5 flex items-center text-sm justify-between sticky top-0 z-[999] ${className}`}>
+    <header className={`py-6 md:px-10 px-5 flex items-center text-sm justify-between sticky top-0 z-[999] ${className ? className : ''}`}>
       <Link to="/">
         <h1 className="font-bold uppercase text-base flex items-center gap-2 relative z-[9999]">
           <div className="w-8 h-8">
@@ -34,23 +38,30 @@ export const Header = ({ className }) => {
         </h1>
       </Link>
       <div className="absolute inset-0 backdrop-blur bg-white/80 md:-z-20"></div>
-      <button onClick={() => setNavOpen(!navOpen)} className="md:hidden border-b border-black active:scale-[.98] transition-transform relative z-[9999]">
-        {navOpen ? 'Close' : 'Menu'}
-      </button>
+      <div className='flex items-center gap-4 md:hidden'>
+        {user && !navOpen && (
+          <Link to="/profile" className="w-8 h-8 overflow-hidden rounded-full bg-[#ddd] z-10">
+            <img className="w-full h-full object-cover" src={user.photoURL ? user.photoURL : '/pfp-placeholder.png'} alt="" />
+          </Link>
+        )}
+        <button onClick={() => setNavOpen(!navOpen)} className="border-b border-black active:scale-[.98] transition-transform relative z-[9999]">
+          {navOpen ? 'Close' : 'Menu'}
+        </button>
+      </div>
       <div
-        className={`flex gap-10 flex-col -z-10 fixed inset-0 bg-white/80 bottom-0 top-20 px-5 backdrop-blur h-[calc(100vh-5rem)] pt-12 md:flex-row md:static md:h-auto md:p-0 transition-transform duration-500 ${
+        className={`flex gap-10 flex-col -z-10 fixed inset-0 max-md:bg-white/80 bottom-0 top-20 px-5 backdrop-blur h-[calc(100vh-5rem)] pt-12 md:flex-row md:static md:h-auto md:p-0 transition-transform duration-500 ${
           navOpen ? 'translate-y-0' : 'max-md:-translate-y-[calc(100%+5rem)]'
         }`}
       >
         {((location.pathname === '/signin' && location.pathname === '/signup') || user) && (
           <ul className="flex gap-6 max-md:w-full justify-between max-md:flex-col md:items-center">
-            <li className='max-md:w-full'>
-              <NavLink to="/add" className={({ isActive }) => (isActive ? 'border-b border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block')}>
+            <li className="max-md:w-full">
+              <NavLink to="/add" className={({ isActive }) => (isActive ? 'border-b border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block border-b-2')}>
                 Add Product
               </NavLink>
             </li>
-            <li className='max-md:w-full'>
-              <NavLink to="/cart" className={({ isActive }) => (isActive ? 'border-b border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block')}>
+            <li className="max-md:w-full">
+              <NavLink to="/cart" className={({ isActive }) => (isActive ? 'border-b border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block border-b-2')}>
                 My Cart
               </NavLink>
             </li>
@@ -71,11 +82,11 @@ export const Header = ({ className }) => {
         ) : (
           <div>
             {location.pathname === '/signin' ? (
-              <Link className='max-md:w-full max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block max-md:text-white' state={location?.state} to="/signup">
+              <Link className="max-md:w-full max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block max-md:text-white" state={location?.state} to="/signup">
                 Sign Up
               </Link>
             ) : (
-              <Link className='max-md:w-full max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block max-md:text-white' state={location?.state} to="/signin">
+              <Link className="max-md:w-full max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block max-md:text-white" state={location?.state} to="/signin">
                 Sign In
               </Link>
             )}

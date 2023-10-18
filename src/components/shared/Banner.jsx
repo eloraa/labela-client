@@ -2,14 +2,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { register } from 'swiper/element/bundle';
 import { useEffect } from 'react';
-import '../../assests/slider.css'
+import '../../assests/slider.css';
 
 export const Banner = () => {
   useEffect(() => {
     register();
   }, []);
   return (
-    <div className="h-[560px]">
+    <div className="h-[560px] relative">
+      <h4 className="text-sm absolute right-5 md:right-10 bottom-10 z-10 text-white">drag/scroll</h4>
       <Swiper className="h-full w-full" mousewheel={true} loop={true} direction="vertical" autoplay={{ delay: 3000 }}>
         <SwiperSlide>
           <div className="w-full h-full bg-black bg-cover bg-center md:px-10 px-5 flex items-end pb-10" style={{ backgroundImage: 'url(/01-c.jpg)' }}>

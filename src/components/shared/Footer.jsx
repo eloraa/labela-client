@@ -2,7 +2,7 @@ import { MasterCardIcon, VisaCardIcon } from "../utils/SvgIcon"
 
 export const Footer = () => {
   return (
-    <footer className="pt-6 md:px-10 px-5 mt-auto">
+    <footer className="pt-6 md:px-10 px-5 mt-auto clear-both">
         <div className="flex gap-8">
             <div className="h-5"><VisaCardIcon></VisaCardIcon></div>
             <div className="h-5"><MasterCardIcon></MasterCardIcon></div>

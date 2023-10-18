@@ -32,13 +32,7 @@
   --toastify-color-progress-error: var(--toastify-color-error);
 }
 
-html,
-body,
-#root {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+
 
 .Toastify__toast-container {
   z-index: var(--toastify-z-index);
