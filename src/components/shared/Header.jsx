@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../providers/AuthProviders';
@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 export const Header = ({ className }) => {
   const [navOpen, setNavOpen] = useState(false);
   const { user, signOutUser } = useContext(AuthContext);
+
+  let location = useLocation()
 
   const handleSignOut = () => {
     signOutUser()
@@ -41,7 +43,7 @@ export const Header = ({ className }) => {
         }`}
       >
         {((location.pathname === '/signin' && location.pathname === '/signup') || user) && (
-          <ul className="flex gap-6 max-md:w-full justify-between max-md:flex-co items-center">
+          <ul className="flex gap-6 max-md:w-full justify-between max-md:flex-col md:items-center">
             <li className="max-md:border-b max-md:py-4">
               <NavLink to="/add" className={({ isActive }) => (isActive ? 'border-b border-black' : '')}>
                 Add Product
@@ -56,7 +58,7 @@ export const Header = ({ className }) => {
         )}
 
         {user ? (
-          <div className="flex-1 justify-end items-center flex gap-4">
+          <div className="items-center flex gap-4">
             <div className="flex gap-2 items-center">
               <Link to="/profile" className="w-8 h-8 overflow-hidden rounded-full bg-[#ddd]">
                 <img className="w-full h-full object-cover" src={user.photoURL ? user.photoURL : '/pfp-placeholder.png'} alt="" />
@@ -69,11 +71,11 @@ export const Header = ({ className }) => {
         ) : (
           <div>
             {location.pathname === '/signin' ? (
-              <Link state={location?.state} to="/signup">
+              <Link className='max-md:w-full max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block max-md:text-white' state={location?.state} to="/signup">
                 Sign Up
               </Link>
             ) : (
-              <Link state={location?.state} to="/signin">
+              <Link className='max-md:w-full max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block max-md:text-white' state={location?.state} to="/signin">
                 Sign In
               </Link>
             )}

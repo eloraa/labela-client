@@ -87,14 +87,14 @@ export const SignIn = () => {
                 Reset Password
               </div>
             </div>
-            <div className="w-full grid grid-cols-2 gap-3 pt-6 border-t">
+            <div className="w-full md:grid grid-cols-2 gap-3 pt-6 border-t">
               <h4 className="flex items-center gap-2">
                 Don&apos;t have an Account?
                 <Link state={location?.state} className="font-semibold" to="/signup">
                   Sign Up
                 </Link>
               </h4>
-              <button className="bg-black py-2.5 md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform text-sm">Sign In</button>
+              <button className="bg-black w-full max-md:mt-6 py-2.5 md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform text-sm">Sign In</button>
             </div>
           </form>
         </div>
