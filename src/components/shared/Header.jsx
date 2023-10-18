@@ -44,13 +44,13 @@ export const Header = ({ className }) => {
       >
         {((location.pathname === '/signin' && location.pathname === '/signup') || user) && (
           <ul className="flex gap-6 max-md:w-full justify-between max-md:flex-col md:items-center">
-            <li className="max-md:border-b max-md:py-4">
-              <NavLink to="/add" className={({ isActive }) => (isActive ? 'border-b border-black' : '')}>
+            <li className='max-md:w-full'>
+              <NavLink to="/add" className={({ isActive }) => (isActive ? 'border-b border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block')}>
                 Add Product
               </NavLink>
             </li>
-            <li className="max-md:border-b max-md:py-4">
-              <NavLink to="/cart" className={({ isActive }) => (isActive ? 'border-b border-black' : '')}>
+            <li className='max-md:w-full'>
+              <NavLink to="/cart" className={({ isActive }) => (isActive ? 'border-b border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block')}>
                 My Cart
               </NavLink>
             </li>
@@ -58,7 +58,7 @@ export const Header = ({ className }) => {
         )}
 
         {user ? (
-          <div className="items-center flex gap-4">
+          <div className="items-center flex gap-4 justify-between">
             <div className="flex gap-2 items-center">
               <Link to="/profile" className="w-8 h-8 overflow-hidden rounded-full bg-[#ddd]">
                 <img className="w-full h-full object-cover" src={user.photoURL ? user.photoURL : '/pfp-placeholder.png'} alt="" />

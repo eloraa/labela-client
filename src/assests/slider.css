@@ -1,0 +1,19 @@
+.heading {
+    overflow: hidden;
+    text-shadow: 0 0 20px rgba(0, 0, 0, .1);
+}
+.heading > h1 {
+    transition: transform 500ms ease;
+    transform: translateY(-400%);
+}
+
+.swiper-slide-next .heading > h1 {
+    transform: translateY(400%);
+}
+.swiper-slide-prev .heading > h1 {
+    transform: translateY(-400%);
+}
+
+.swiper-slide-active .heading > h1 {
+    transform: translateY(0);
+}

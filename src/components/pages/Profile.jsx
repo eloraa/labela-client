@@ -203,7 +203,7 @@ export const Profile = () => {
                 onLoad={() => {
                   if (user.photoURL !== selectedImage) formRef.current.photoURL.disabled = true;
                 }}
-                className="max-w-xs object-contain rounded"
+                className="max-w-xs object-contain rounded max-md:w-full"
                 src={selectedImage ? selectedImage : user?.photoURL ? user.photoURL : '/pfp-placeholder.png'}
                 alt=""
               />
