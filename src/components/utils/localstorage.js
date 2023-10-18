@@ -9,15 +9,19 @@ const getStoredValue = (uid) => {
   return storedValue ? JSON.parse(storedValue) : [];
 };
 
-const saveToLocale = (id, uid) => {
+const saveToLocale = (value, uid, override) => {
     if(!uid) {
       toast('Something went wrong.')
       return
     }
 
+    if(override) {
+      localStorage.setItem(uid, JSON.stringify([value]));
+      return
+    }
     const storage = getStoredValue(uid);
-    if (!storage.find(eventID => eventID === id)) {
-      storage.push(id);
+    if (!storage.find(eventID => eventID === value)) {
+      storage.push(value);
       localStorage.setItem(uid, JSON.stringify(storage));
       toast('Your event has been successfully added to your bookmarks');
     } 

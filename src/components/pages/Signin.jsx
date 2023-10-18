@@ -60,7 +60,7 @@ export const SignIn = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 pt-8 md:pt-0 lg:my-12 my-0">
+    <div className="grid grid-cols-1 lg:grid-cols-3 pt-8 md:pt-0 lg:my-12 my-0 dark:text-white">
       <div className="md:px-10 px-5 lg:block hidden">
         <h1 className="text-2xl font-black uppercase">Login</h1>
       </div>
@@ -69,7 +69,7 @@ export const SignIn = () => {
           <div className="flex justify-between">
             <h1 className="font-semibold">Login to Continue</h1>
           </div>
-          <button className="flex items-center gap-2 w-full justify-center border-2 rounded py-2 mt-8" onClick={handleGoogleLogin}>
+          <button className="flex items-center gap-2 w-full justify-center border-2 dark:bg-[#222] dark:border-transparent rounded py-2 mt-8" onClick={handleGoogleLogin}>
             <span className="w-5 h-5 block">
               <GoogleIcon></GoogleIcon>
             </span>
@@ -77,10 +77,10 @@ export const SignIn = () => {
           </button>
           <form ref={formRef} onSubmit={handleFormSubmit} className="mt-6 grid gap-4">
             <div className="w-full">
-              <input className="w-full py-4 outline-none border-2 px-6 rounded focus:border-black" type="email" name="email" placeholder="Email" required />
+              <input className="w-full py-4 outline-none border-2 px-6 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark focus:border-black" type="email" name="email" placeholder="Email" required />
             </div>
             <div className="w-full">
-              <input className="w-full py-4 outline-none border-2 px-6 rounded focus:border-black" type="password" name="password" placeholder="Password" required />
+              <input className="w-full py-4 outline-none border-2 px-6 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark focus:border-black" type="password" name="password" placeholder="Password" required />
             </div>
             <div className="text-sm flex items-center justify-between">
               <div className="underline cursor-pointer" onClick={handleResetPassword}>
@@ -94,7 +94,7 @@ export const SignIn = () => {
                   Sign Up
                 </Link>
               </h4>
-              <button className="bg-black w-full max-md:mt-6 py-2.5 md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform text-sm">Sign In</button>
+              <button className="bg-black dark:bg-dark dark:text-black w-full max-md:mt-6 py-2.5 md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform text-sm">Sign In</button>
             </div>
           </form>
         </div>

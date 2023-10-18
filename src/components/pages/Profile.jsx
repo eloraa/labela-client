@@ -30,13 +30,15 @@ export const Profile = () => {
       //   toast('Image size exceeds the maximum limit of 1MB');
       //   return;
       // }
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = event => {
-          setSelectedImage(event.target.result);
-        };
-        reader.readAsDataURL(file);
+      if (!file.type.startsWith('image/')) {
+        toast('Upload a valid image.');
+        return;
       }
+      const reader = new FileReader();
+      reader.onload = event => {
+        setSelectedImage(event.target.result);
+      };
+      reader.readAsDataURL(file);
     } else formRef.current.photoURL.disabled = false;
   };
 
@@ -66,6 +68,10 @@ export const Profile = () => {
       toast('Updating profile...', {
         autoClose: false,
       });
+      if (!file.type.startsWith('image/')) {
+        toast('Upload a valid image.');
+        return;
+      }
       setIsUpdating(true);
       const blob = new Blob([file], { type: file.type });
       const storageRef = ref(storage, 'pfp-' + user.uid);
@@ -143,7 +149,7 @@ export const Profile = () => {
 
   return (
     <>
-      <main className={`py-6 md:px-10 px-5 ${isUpdating ? 'opacity-10 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
+      <main className={`py-6 md:px-10 px-5 dark:text-white ${isUpdating ? 'opacity-10 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
         <div className="flex justify-between items-center mb-16">
           <h1 className="font-semibold text-xl">{editState && 'Update '}Your Profile</h1>
           <button
@@ -223,7 +229,7 @@ export const Profile = () => {
                 <h4>Name</h4>
                 <div className="md:w-80 w-full">
                   <input
-                    className="w-full focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded"
+                    className="w-full focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
                     type="text"
                     name="displayName"
                     placeholder="Display Name"
@@ -241,7 +247,7 @@ export const Profile = () => {
                 <h4>Photo URL</h4>
                 <div className="md:w-80 w-full">
                   <input
-                    className="w-full focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded"
+                    className="w-full focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
                     type="text"
                     name="photoURL"
                     placeholder="Photo URL"
@@ -254,7 +260,7 @@ export const Profile = () => {
             </ul>
 
             {editState && (
-              <button name="submit" className="bg-black py-2 md:px-24 w-full md:w-auto px-0 mt-6 text-white font-bold rounded active:scale-[.99] transition-transform">
+              <button name="submit" className="bg-black py-2 md:px-24 w-full md:w-auto px-0 mt-6 text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
                 Update
               </button>
             )}

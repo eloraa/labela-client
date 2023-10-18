@@ -18,10 +18,10 @@ export const About = () => {
           <h1 className="text-2xl font-black uppercase mb-8">Newsletter</h1>{' '}
           <form className="w-full">
             <div className="w-full">
-              <input className="w-full py-4 outline-none border-b-2 valid:border-black focus:border-black" type="email" name="email" placeholder="Email" required />
+              <input className="w-full py-4 dark:bg-transparent outline-none border-b-2 dark:valid:border-dark dark:focus:border-dark valid:border-black focus:border-black" type="email" name="email" placeholder="Email" required />
             </div>
             <div className="w-full mt-6">
-              <button className="bg-black w-full max-md:mt-6 py-2.5 md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform text-sm">Subscribe</button>
+              <button className="bg-black dark:bg-dark dark:text-black w-full max-md:mt-6 py-2.5 md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform text-sm">Subscribe</button>
             </div>
           </form>
         </div>
