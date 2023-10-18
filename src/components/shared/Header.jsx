@@ -1,11 +1,15 @@
 import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 export const Header = ({ className }) => {
+  const [navOpen, setNavOpen] = useState(false)
+
+
   return (
-    <header className={`py-6 md:px-10 px-5 flex items-center text-sm justify-between sticky top-0 z-[999999] backdrop-blur bg-white/80 ${className}`}>
+    <header className={`py-6 md:px-10 px-5 flex items-center text-sm justify-between sticky top-0 z-[999] ${className}`}>
       <Link to="/">
-        <h1 className="font-bold uppercase text-base flex items-center gap-2">
+        <h1 className="font-bold uppercase text-base flex items-center gap-2 relative z-[9999]">
           <div className='w-8 h-8'>
             <svg viewBox="0 0 31 31" className='w-full h-full'>
               <path
@@ -19,8 +23,9 @@ export const Header = ({ className }) => {
           Labela
         </h1>
       </Link>
-      <button className='md:hidden border-b border-black active:scale-[.98] transition-transform'>Menu</button>
-      <div className="flex gap-10 flex-col fixed inset-0 bg-white/80 bottom-0 top-20 px-5 backdrop-blur h-[calc(100vh-5rem)] pt-12 md:flex-row md:static md:h-auto md:p-0">
+      <div className='absolute inset-0 backdrop-blur bg-white/80 md:-z-20'></div>
+      <button onClick={() => setNavOpen(!navOpen)} className='md:hidden border-b border-black active:scale-[.98] transition-transform relative z-[9999]'>{navOpen ? 'Close' : 'Menu'}</button>
+      <div className={`flex gap-10 flex-col -z-10 fixed inset-0 bg-white/80 bottom-0 top-20 px-5 backdrop-blur h-[calc(100vh-5rem)] pt-12 md:flex-row md:static md:h-auto md:p-0 transition-transform duration-500 ${navOpen ? 'translate-y-0' : 'max-md:-translate-y-[calc(100%+5rem)]'}`}>
         <ul className="flex gap-6 max-md:w-full justify-between max-md:flex-col">
           <li className='max-md:border-b max-md:py-4'>
             <NavLink to="/add" className={({ isActive }) => (isActive ? 'border-b border-black' : '')}>
