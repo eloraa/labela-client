@@ -1,5 +1,3 @@
-import { key } from "localforage";
-
 export const printPDF = pdfFile => {
     const screenHeight = window.innerHeight;
     const screenWidth = window.innerWidth;
