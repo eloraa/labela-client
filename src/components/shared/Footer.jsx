@@ -39,7 +39,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <button onClick={changeTheme} className="px-6 py-2 bg-white border-2 rounded text-xs font-bold uppercase dark:bg-dark dark:text-black">
+        <button onClick={changeTheme} className="border-b text-xs font-bold uppercase dark:border-dark">
           Switch Theme
         </button>
       </div>

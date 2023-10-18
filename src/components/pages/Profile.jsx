@@ -51,8 +51,8 @@ export const Profile = () => {
     name = e.target.displayName.value || null;
     photoURL = e.target.photoURL.value || null;
 
-    if (name && name.length > 20) {
-      toast('Name cannot exceeds 20 characters');
+    if (name && name.length > 30) {
+      toast('Name cannot exceeds 30 characters');
       return;
     }
 

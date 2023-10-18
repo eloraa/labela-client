@@ -1,4 +1,34 @@
+import { toast } from "react-toastify";
+
 export const About = () => {
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    let email;
+    if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(e.target.email.value)) email = e.target.email.value;
+    else toast('Enter a valid Email.')
+
+    if(email) {
+      fetch(`${import.meta.env.VITE_BACKENDSERVER}/newsletter`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      })
+      .then((res) => res.json())
+      .then(result => {
+        if(result.success) {
+          toast('Thanks for subscribing to our Newsletter.')
+        }
+        if(result.errors) {
+          toast(result.errors[0].messages[0])
+        }
+      })
+      .catch(() => toast('Something went wrong.'))
+    }
+  }
   return (
     <div>
       <h1 className="text-sm font-medium">About Us</h1>
@@ -16,7 +46,7 @@ export const About = () => {
         </p>
         <div className="mt-28 float-left w-full lg:w-[calc(100%-452px)] max-md:order-2">
           <h1 className="text-2xl font-black uppercase mb-8">Newsletter</h1>{' '}
-          <form className="w-full">
+          <form onSubmit={handleSubmit} className="w-full">
             <div className="w-full">
               <input className="w-full py-4 dark:bg-transparent outline-none border-b-2 dark:valid:border-dark dark:focus:border-dark valid:border-black focus:border-black" type="email" name="email" placeholder="Email" required />
             </div>

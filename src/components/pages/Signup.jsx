@@ -103,10 +103,10 @@ export const Signup = () => {
           </button>
           <form onSubmit={handleFormSubmit} className="mt-6 grid gap-4">
             <div className="w-full">
-              <input className="w-full py-4 outline-none border-2 px-6 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark  focus:border-black" type="email" name="email" placeholder="Email" required />
+              <input className="w-full py-4 outline-none border-2 px-6 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark focus:border-black" type="email" name="email" placeholder="Email" required />
             </div>
             <div className="w-full">
-              <input onChange={validatePassword} className="w-full py-4 outline-none border-2 px-6 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark  focus:border-black" type="password" name="password" placeholder="Password" required />
+              <input onChange={validatePassword} className="w-full py-4 outline-none border-2 px-6 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark focus:border-black" type="password" name="password" placeholder="Password" required />
             </div>
             <div>
               <h4 className="text-sm hidden" ref={warning}>

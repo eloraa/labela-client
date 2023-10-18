@@ -37,7 +37,7 @@ export const Header = ({ className }) => {
           Labela
         </h1>
       </Link>
-      <div className="absolute inset-0 backdrop-blur bg-white/80 md:-z-20 dark:bg-black"></div>
+      <div className="absolute inset-0 backdrop-blur bg-white/80 md:-z-20 dark:bg-black/95"></div>
       <div className="flex items-center gap-4 md:hidden">
         {user && !navOpen && (
           <Link to="/profile" className="w-8 h-8 overflow-hidden rounded-full bg-[#ddd] z-10">
@@ -49,7 +49,7 @@ export const Header = ({ className }) => {
         </button>
       </div>
       <div
-        className={`flex gap-10 flex-col -z-10 fixed inset-0 max-md:bg-white/80 bottom-0 top-20 px-5 backdrop-blur h-[calc(100vh-5rem)] pt-12 md:flex-row md:static md:h-auto md:p-0 transition-transform duration-500 ${
+        className={`flex gap-10 flex-col -z-10 fixed inset-0 max-md:bg-white/80 dark:bg-black/80 bottom-0 top-20 px-5 backdrop-blur h-[calc(100vh-5rem)] pt-12 md:flex-row md:static md:h-auto md:p-0 transition-transform duration-500 ${
           navOpen ? 'translate-y-0' : 'max-md:-translate-y-[calc(100%+5rem)]'
         }`}
       >
@@ -58,7 +58,7 @@ export const Header = ({ className }) => {
             <li className="max-md:w-full">
               <NavLink
                 to="/add"
-                className={({ isActive }) => (isActive ? 'border-b border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block md:border-b-transparent border-b-2')}
+                className={({ isActive }) => (isActive ? 'border-b dark:border-dark border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block md:border-b-transparent border-b-2 dark:border-black')}
               >
                 Add Product
               </NavLink>
@@ -66,7 +66,7 @@ export const Header = ({ className }) => {
             <li className="max-md:w-full">
               <NavLink
                 to="/cart"
-                className={({ isActive }) => (isActive ? 'border-b border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block md:border-b-transparent border-b-2')}
+                className={({ isActive }) => (isActive ? 'border-b dark:border-dark border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block md:border-b-transparent border-b-2 dark:border-black')}
               >
                 My Cart
               </NavLink>
@@ -88,11 +88,11 @@ export const Header = ({ className }) => {
         ) : (
           <div>
             {location.pathname === '/signin' ? (
-              <Link className="max-md:w-full max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block max-md:text-white" state={location?.state} to="/signup">
+              <Link className="max-md:w-full dark:max-md:bg-dark max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block dark:max-md:text-black max-md:text-white" state={location?.state} to="/signup">
                 Sign Up
               </Link>
             ) : (
-              <Link className="max-md:w-full max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block max-md:text-white" state={location?.state} to="/signin">
+              <Link className="max-md:w-full dark:max-md:bg-dark max-md:bg-black max-md:font-bold max-md:py-2 rounded text-center block dark:max-md:text-black max-md:text-white" state={location?.state} to="/signin">
                 Sign In
               </Link>
             )}
