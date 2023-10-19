@@ -16,7 +16,7 @@ export const Brand = () => {
       <Banner>
         {brandData.scheme[params.brand.toLowerCase()].map((scheme, i) => (
           <SwiperSlide key={i}>
-            <div className="w-full h-full bg-black bg-cover bg-center md:px-10 px-5 flex items-end pb-10" style={{ backgroundImage: `url(/nike${scheme.image})` }}>
+            <div className="w-full h-full bg-black bg-cover bg-center md:px-10 px-5 flex items-end pb-10" style={{ backgroundImage: `url(/${params.brand.toLowerCase()}${scheme.image})` }}>
               <div className="text-2xl md:text-4xl leading-[1] font-black uppercase heading flex flex-col items-start">
                 <h1 className={`bg-[${scheme.theme}] inline-block`}>{scheme.heading[0]}</h1>
                 <h1 className={`bg-[${scheme.theme}] inline-block`}>{scheme.heading[1]}</h1>
