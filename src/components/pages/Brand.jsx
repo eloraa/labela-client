@@ -1,9 +1,10 @@
-import { Link, useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { NotFound } from '../shared/NotFound';
 import { Banner } from '../shared/Banner';
 import { SwiperSlide } from 'swiper/react';
 import { useContext } from 'react';
 import { BrandContext } from '../Root';
+import { Product } from '../shared/Product';
 
 export const Brand = () => {
   const data = useLoaderData();
@@ -37,30 +38,7 @@ export const Brand = () => {
         </h1>
 
         <div className="grid md:grid-cols-2 lg:grid-flow-cols-3 xl:grid-cols-4 gap-10">
-          {data.length ? (
-            data.map((product, index) => (
-              <div className="md:max-w-[300px] mx-auto flex justify-center items-center" key={index}>
-                <div className="w-full">
-                  <figure className="h-[420px] bg-gray-50 dark:bg-gray-950">
-                    <img className="w-full h-full object-contain" src={product.image} alt="" />
-                  </figure>
-                  <h4 className="text-neutral-500 font-medium text-sm capitalize mt-4">{product.type}</h4>
-
-                  <div className="font-bold text-[1.05rem] capitalize mt-1">
-                    <Link to={`/product/${product._id}`}>
-                      <h1 className='whitespace-nowrap text-ellipsis overflow-hidden'>{product.name}</h1>
-                    </Link>
-                    <div className="flex gap-2 items-center">
-                      <h2>${product.price.toFixed(2)}</h2>
-                      <h2 className="text-neutral-400">- Rating: {product.rating} / 5</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div>This brand has no products.</div>
-          )}
+          {data.length ? data.map((product, index) => <Product key={index} product={product}></Product>) : <div>This brand has no products.</div>}
         </div>
       </main>
     </div>
