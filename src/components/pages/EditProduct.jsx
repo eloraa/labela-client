@@ -185,8 +185,8 @@ export const EditProduct = () => {
   return (
     <>
       <main className={`py-6 md:px-10 px-5 dark:text-white ${isCreating ? 'opacity-10 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-black uppercase mb-12">Edit Product</h1>
+        <div className="flex items-center justify-between mb-12">
+          <h1 className="text-2xl font-black uppercase">Edit Product</h1>
           {editState && (
             <button onClick={() => {
               setEditState(false)
@@ -210,7 +210,7 @@ export const EditProduct = () => {
               Change the Image.
             </button>
           </div>
-          <form onChange={handleFormChange} ref={formRef} onSubmit={handleFormSubmit} className="h-full flex flex-col justify-between">
+          <form ref={formRef} onInput={handleFormChange} onSubmit={handleFormSubmit} className="h-full flex flex-col justify-between">
             <ul className="grid gap-6">
               <li className="hidden">
                 <input onChange={handleFileSelect} placeholder="Upload" name="photo" type="file" src="" alt="" accept="image/*" />
