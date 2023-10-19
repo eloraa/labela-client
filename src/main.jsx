@@ -10,6 +10,7 @@ import { SignIn } from './components/pages/Signin';
 import { Signup } from './components/pages/Signup';
 import { Profile } from './components/pages/Profile';
 import { PrivateRoute } from './components/utils/PrivateRoute';
+import { Brand } from './components/pages/Brand';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <PrivateRoute><Profile></Profile></PrivateRoute>
+      },
+      {
+        path: '/brand/:brand',
+        element: <Brand></Brand>,
+        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand}`),
       }
     ],
   },
