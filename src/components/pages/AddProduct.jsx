@@ -55,7 +55,7 @@ export const AddProduct = () => {
   };
 
   const saveProduct = data => {
-    fetch(`${import.meta.env.VITE_BACKENDSERVER}/products/add`, {
+    fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/add`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

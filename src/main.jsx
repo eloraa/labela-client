@@ -12,12 +12,13 @@ import { Profile } from './components/pages/Profile';
 import { PrivateRoute } from './components/utils/PrivateRoute';
 import { Brand } from './components/pages/Brand';
 import { AddProduct } from './components/pages/AddProduct';
+import { Details } from './components/pages/Details';
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
     errorElement: <NotFound></NotFound>,
-    loader: () => fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand`),
+    loader: async () => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand`),
     children: [
       {
         path: '/',
@@ -38,11 +39,16 @@ const router = createBrowserRouter([
       {
         path: '/brand/:brand',
         element: <Brand></Brand>,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand.toLowerCase()}`),
+        loader: async  ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand.toLowerCase()}`),
       },
       {
         path: '/product/add',
         element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
+      },
+      {
+        path: '/product/:id',
+        element: <PrivateRoute><Details></Details></PrivateRoute>,
+        loader: async ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/${params.id}`),
       }
     ],
   },
