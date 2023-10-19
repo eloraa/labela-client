@@ -15,6 +15,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     errorElement: <NotFound></NotFound>,
+    loader: () => fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand`),
     children: [
       {
         path: '/',
