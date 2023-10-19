@@ -57,7 +57,7 @@ export const Header = ({ className }) => {
           <ul className="flex gap-6 max-md:w-full justify-between max-md:flex-col md:items-center">
             <li className="max-md:w-full">
               <NavLink
-                to="/add"
+                to="/product/add"
                 className={({ isActive }) => (isActive ? 'border-b dark:border-dark border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block md:border-b-transparent border-b-2 dark:border-black')}
               >
                 Add Product

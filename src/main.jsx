@@ -11,6 +11,7 @@ import { Signup } from './components/pages/Signup';
 import { Profile } from './components/pages/Profile';
 import { PrivateRoute } from './components/utils/PrivateRoute';
 import { Brand } from './components/pages/Brand';
+import { AddProduct } from './components/pages/AddProduct';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -37,7 +38,11 @@ const router = createBrowserRouter([
       {
         path: '/brand/:brand',
         element: <Brand></Brand>,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand}`),
+        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand.to}`),
+      },
+      {
+        path: '/product/add',
+        element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
       }
     ],
   },

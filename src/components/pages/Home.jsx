@@ -45,7 +45,7 @@ export const Home = () => {
               <div key={i} className="flex flex-col h-full">
                 <figure className="h-7">
                   <img
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain dark:invert"
                     src={`/${brand
                       .toLowerCase()
                       .replace(/\s+/g, '-')
