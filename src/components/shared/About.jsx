@@ -42,7 +42,7 @@ export const About = () => {
     }
   };
   return (
-    <div>
+    <div className='mt-40'>
       <h1 className="text-sm font-medium">About Us</h1>
 
       <div className="mt-4 min-h-[calc(550px+1rem)] max-md:grid">

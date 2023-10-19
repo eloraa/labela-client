@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       {
         path: '/brand/:brand',
         element: <Brand></Brand>,
-        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand.to}`),
+        loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand.toLowerCase()}`),
       },
       {
         path: '/product/add',

@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { storage } from '../utils/firebase.config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BrandContext } from '../Root';
 import { validateProduct } from '../utils/utils';
 
@@ -13,10 +13,15 @@ export const AddProduct = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [ratingValue, setRatingValue] = useState('');
   const [priceValue, setPriceValue] = useState('');
-  const [uploadedImage, setUploadedImage] = useState('');
+  const [uploadedImage, setUploadedImage] = useState('_');
+  const location = useLocation()
 
   const handleMinMax = (event, min, max, callback) => {
     const value = Math.max(min, Math.min(max, Number(event.target.value)));
+    if(event.target.value === '') {
+        callback('')
+        return
+    }
     callback(value);
   };
 
@@ -71,7 +76,7 @@ export const AddProduct = () => {
         }
         if (response.success) {
           toast('Product added Successfully');
-          navigate('/');
+          navigate(location.state || '/');
         }
       })
       .catch(() => {
@@ -92,8 +97,9 @@ export const AddProduct = () => {
     }
     const file = e.target?.photo?.files[0];
 
+    console.log(uploadedImage);
     const data = {
-      image: uploadedImage || e.target.photoURL.value,
+      image: uploadedImage !== '_' ? uploadedImage : e.target.photoURL.value || uploadedImage,
       name: e.target.name.value,
       brandName: e.target.brandName.value,
       type: e.target.type.value,
@@ -102,9 +108,12 @@ export const AddProduct = () => {
       rating: e.target.rating.value,
     };
 
-    if (validateProduct(data)) return;
+    if (validateProduct(data)) {
+        toast('Check your input data.')
+        return
+    }
 
-    if (file && !uploadedImage) {
+    if (file && uploadedImage === '_') {
       toast('Adding product...', {
         autoClose: false,
       });
@@ -156,7 +165,7 @@ export const AddProduct = () => {
               <img className="max-w-xs object-contain rounded max-md:w-full" src={selectedImage ? selectedImage : ''} alt="" />
             </figure>
             <button onClick={handleImageUpload} className="text-sm underline active:scale-[.98] transition-transform">
-              Upload an Image
+              {selectedImage ? 'Change the Image' : 'Upload an Image'}
             </button>
           </div>
           <form ref={formRef} onSubmit={handleFormSubmit} className="h-full flex flex-col justify-between">
