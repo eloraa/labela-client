@@ -261,7 +261,7 @@ export const EditProduct = () => {
               <div className="flex gap-5">
                 <li className="w-1/2">
                   <h4 className="mb-4 text-sm">Price</h4>
-                  <div className="w-full flex items-center gap-2 pl-4 rounded border-2">
+                  <div className="w-full flex items-center gap-2 pl-4 rounded border-2 dark:border-transparent dark:bg-[#222]">
                     <span className="font-bold whitespace-nowrap">$</span>
                     <input
                       onChange={e => handleMinMax(e, 1, 9999999, setPriceValue)}
@@ -276,7 +276,7 @@ export const EditProduct = () => {
                 <li className="w-1/2">
                   <h4 className="mb-4 text-sm">Rating</h4>
 
-                  <div className="w-full flex items-center gap-2 pr-4 rounded border-2">
+                  <div className="w-full flex items-center gap-2 pr-4 rounded border-2 dark:border-transparent dark:bg-[#222]">
                     <input
                       onChange={e => handleMinMax(e, 1, 5, setRatingValue)}
                       className="w-full focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
