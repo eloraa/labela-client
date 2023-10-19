@@ -2,25 +2,30 @@ import { useContext, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { storage } from '../utils/firebase.config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { BrandContext } from '../Root';
-import { validateProduct } from '../utils/utils';
+import { objIsEqual, validateProduct } from '../utils/utils';
 
-export const AddProduct = () => {
+export const EditProduct = () => {
   const formRef = useRef(null);
   const { brandData } = useContext(BrandContext);
   const [isCreating, setIsCreating] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [ratingValue, setRatingValue] = useState('');
-  const [priceValue, setPriceValue] = useState('');
   const [uploadedImage, setUploadedImage] = useState('_');
-  const location = useLocation()
+  const [editState, setEditState] = useState(false);
+  const location = useLocation();
+
+  const product = useLoaderData();
+  const [photoURL, setPhotoURL] = useState(product?.image || '');
+  const [ratingValue, setRatingValue] = useState(product.rating || '');
+  const [priceValue, setPriceValue] = useState(product.price || '');
+
 
   const handleMinMax = (event, min, max, callback) => {
     const value = Math.max(min, Math.min(max, Number(event.target.value)));
-    if(event.target.value === '') {
-        callback('')
-        return
+    if (event.target.value === '') {
+      callback('');
+      return;
     }
     callback(value);
   };
@@ -57,7 +62,7 @@ export const AddProduct = () => {
 
   const saveProduct = data => {
     fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/add`, {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'content-type': 'application/json',
       },
@@ -76,7 +81,7 @@ export const AddProduct = () => {
           return;
         }
         if (response.success) {
-          toast('Product added Successfully');
+          toast('Product updated Successfully');
           navigate(location.state || '/');
         }
       })
@@ -85,6 +90,24 @@ export const AddProduct = () => {
         toast.dismiss();
         toast('Something went wrong');
       });
+  };
+
+  const handleFormChange = () => {
+    let target = formRef.current;
+    const data = {
+      image: target.photoURL.value,
+      name: target.name.value,
+      brandName: target.brandName.value,
+      type: target.type.value,
+      price: target.price.value,
+      description: target.description.value,
+      rating: target.rating.value,
+    };
+    if (!objIsEqual(Object.fromEntries(Object.entries(product).filter(([key]) => key !== '_id')), data)) {
+      setEditState(true);
+    } else {
+      setEditState(false);
+    }
   };
 
   const handleFormSubmit = e => {
@@ -108,13 +131,18 @@ export const AddProduct = () => {
       rating: e.target.rating.value,
     };
 
+    if (objIsEqual(Object.fromEntries(Object.entries(product).filter(([key]) => key !== '_id')), data) && !editState) {
+      toast('Nothing to Update.')
+      return
+    }
+
     if (validateProduct(data)) {
-        toast('Check your input data.')
-        return
+      toast('Check your input data.');
+      return;
     }
 
     if (file && uploadedImage === '_') {
-      toast('Adding product...', {
+      toast('Updating product...', {
         autoClose: false,
       });
       if (!file.type.startsWith('image/')) {
@@ -145,7 +173,7 @@ export const AddProduct = () => {
         });
       return;
     } else {
-      toast('Adding the product...', {
+      toast('Updating Product...', {
         autoClose: false,
       });
       setIsCreating(true);
@@ -157,18 +185,32 @@ export const AddProduct = () => {
   return (
     <>
       <main className={`py-6 md:px-10 px-5 dark:text-white ${isCreating ? 'opacity-10 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
-        <h1 className="text-2xl font-black uppercase mb-12">Add Product</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-black uppercase mb-12">Edit Product</h1>
+          {editState && (
+            <button onClick={() => {
+              setEditState(false)
+              setPhotoURL(product?.image || '');
+              setSelectedImage(null);
+              setUploadedImage('_');
+              formRef.current.photoURL.disabled = false
+              formRef.current.reset()
+            }} className="text-sm underline active:scale-[.98] transition-transform">
+              Discard the Changes.
+            </button>
+          )}
+        </div>
 
         <div className="mb-20 mt-5 grid md:grid-cols-[auto_1fr] gap-10">
           <div className="flex flex-col gap-1 items-start mb-10">
             <figure className={`overflow-hidden rounded relative max-w-xs ${selectedImage ? '' : 'md:w-[20rem]'}`}>
-              <img className="max-w-xs object-contain rounded max-md:w-full" src={selectedImage ? selectedImage : ''} alt="" />
+              <img className="max-w-xs object-contain rounded max-md:w-full" src={selectedImage ? selectedImage : photoURL} alt="" />
             </figure>
             <button onClick={handleImageUpload} className="text-sm underline active:scale-[.98] transition-transform">
-              {selectedImage ? 'Change the Image' : 'Upload an Image'}
+              Change the Image.
             </button>
           </div>
-          <form ref={formRef} onSubmit={handleFormSubmit} className="h-full flex flex-col justify-between">
+          <form onChange={handleFormChange} ref={formRef} onSubmit={handleFormSubmit} className="h-full flex flex-col justify-between">
             <ul className="grid gap-6">
               <li className="hidden">
                 <input onChange={handleFileSelect} placeholder="Upload" name="photo" type="file" src="" alt="" accept="image/*" />
@@ -181,6 +223,7 @@ export const AddProduct = () => {
                     type="text"
                     name="name"
                     placeholder="Name"
+                    defaultValue={product.name}
                   />
                 </div>
               </li>
@@ -188,7 +231,7 @@ export const AddProduct = () => {
                 <h4 className="mb-4 text-sm">Brand Name</h4>
                 <div className="w-full">
                   <select
-                    defaultValue=""
+                    defaultValue={product.brandName}
                     className="w-full focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
                     name="brandName"
                   >
@@ -211,6 +254,7 @@ export const AddProduct = () => {
                     type="text"
                     name="type"
                     placeholder="Type"
+                    defaultValue={product.type}
                   />
                 </div>
               </li>
@@ -253,6 +297,7 @@ export const AddProduct = () => {
                     type="text"
                     name="photoURL"
                     placeholder="Image URL"
+                    defaultValue={product.image}
                   />
                 </div>
                 <h4 className="mt-8 text-sm flex items-center gap-1">
@@ -276,13 +321,14 @@ export const AddProduct = () => {
                     type="text"
                     name="description"
                     placeholder="Short Description"
+                    defaultValue={product.description}
                   />
                 </div>
               </li>
             </ul>
 
             <button name="submit" className="bg-black py-2 md:px-24 w-full px-0 mt-6 text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
-              Add Product
+              Update Product
             </button>
           </form>
         </div>

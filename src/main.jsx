@@ -13,6 +13,7 @@ import { PrivateRoute } from './components/utils/PrivateRoute';
 import { Brand } from './components/pages/Brand';
 import { AddProduct } from './components/pages/AddProduct';
 import { Details } from './components/pages/Details';
+import { EditProduct } from './components/pages/EditProduct';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
       {
         path: '/product/:id',
         element: <PrivateRoute><Details></Details></PrivateRoute>,
+        loader: async ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/${params.id}`),
+      },
+      {
+        path: '/product/edit/:id',
+        element: <PrivateRoute><EditProduct></EditProduct></PrivateRoute>,
         loader: async ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/${params.id}`),
       }
     ],

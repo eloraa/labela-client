@@ -44,3 +44,28 @@ export const validateProduct = obj => {
 
   return false;
 };
+
+export const objIsEqual = (objA, objB) => {
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  for (const key of keysA) {
+    const valueA = objA[key];
+    const valueB = objB[key];
+
+    if (typeof valueA === 'object' && typeof valueB === 'object') {
+      if (!objIsEqual(valueA, valueB)) {
+        return false;
+      }
+    } else if (valueA != valueB) {
+      return false;
+    }
+  }
+
+  return true;
+};
+

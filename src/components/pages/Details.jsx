@@ -15,7 +15,6 @@ export const Details = () => {
     callback(value);
   };
   const product = useLoaderData();
-  console.log(product);
   if (product?.errors) return <NotFound alt={true}></NotFound>;
 
   return (
