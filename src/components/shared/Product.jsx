@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProviders';
+
 
 export const Product = ({ product }) => {
   const { user } = useContext(AuthContext);
+  const location = useLocation()
   return (
     <div className="md:max-w-[300px] mx-auto flex justify-center items-center">
       <div className="w-full">
@@ -21,7 +23,7 @@ export const Product = ({ product }) => {
             <h2>${product.price.toFixed(2)}</h2>
             <h2 className="text-neutral-500 font-normal">- Rating: {product.rating}/5</h2>
           </div>
-          {user && <Link to={`/product/edit/${product._id}`}><button className="text-sm underline active:scale-[.98] transition-transform mt-4 font-normal">Edit this Product</button></Link>}
+          {user && <Link state={location.pathname} to={`/product/edit/${product._id}`}><button className="text-sm underline active:scale-[.98] transition-transform mt-4 font-normal">Edit this Product</button></Link>}
         </div>
       </div>
     </div>

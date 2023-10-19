@@ -61,7 +61,7 @@ export const EditProduct = () => {
   };
 
   const saveProduct = data => {
-    fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/add`, {
+    fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/${product._id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',
