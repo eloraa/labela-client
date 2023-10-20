@@ -6,10 +6,27 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
   const [isChanged, setIsChanges] = useState(false);
   const formRef = useRef(null);
 
+  const disableButton = (value, min, max) => {
+    if(value === min) {
+      formRef.current.querySelector('.minus').style.color = '#ddd'
+    } else {
+      formRef.current.querySelector('.minus').removeAttribute('style')
+    }
+
+    if(value === max) {
+      formRef.current.querySelector('.plus').style.color = '#ddd'
+    } else {
+      formRef.current.querySelector('.plus').removeAttribute('style')
+    }
+  }
 
   const handleMinMax = (event, min, max, callback) => {
-    const value = Math.max(min, Math.min(max, Number(event.target.value)));
-    if (event.target.value === '') {
+    let target = event?.customTarget || event.target
+    const value = Math.max(min, Math.min(max, Number(event?.customTarget ? event.value : target.value)));
+
+    disableButton(value, min, max)
+
+    if (target.value === '') {
       callback('');
       return;
     }
@@ -17,6 +34,7 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
   };
 
   useEffect(() => {
+    disableButton(cartValue, 1, 9999)
     if(parseInt(formRef.current.quantity.value) !== currentValue) setIsChanges(true)
     else setIsChanges(false)
   }, [cartValue, currentValue])
@@ -26,9 +44,9 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
       <div className="flex items-center gap-2 text-center rounded border-2 px-3 max-md:w-full">
         <span
           className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9"
-          onClick={() => setCartValue(cartValue <= 1 ? 1 : cartValue - 1)}
+          onClick={() => handleMinMax({ customTarget: formRef.current.quantity, value: parseInt(formRef.current.quantity.value) - 1 }, 1, 9999, setCartValue)}
         >
-          <div className='w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:left-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white'></div>
+          <div className='minus w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:left-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white after:bg-current'></div>
         </span>
         <input
           onChange={e => handleMinMax(e, 1, 9999, setCartValue)}
@@ -40,9 +58,9 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
         />
         <span
           className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9"
-          onClick={() => setCartValue(cartValue >= 9999 ? 9999 : cartValue + 1)}
+          onClick={() => handleMinMax({ customTarget: formRef.current.quantity, value: parseInt(formRef.current.quantity.value) + 1 }, 1, 9999, setCartValue)}
         >
-          <div className='w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:right-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white before:absolute before:content-[""] before:w-[2px] before:h-3 before:rounded-full before:right-[calc(50%-5px)] before:top-[calc(50%-6px)] before:bg-black dark:before:bg-white'></div>
+          <div className='plus w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:right-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white before:absolute before:content-[""] before:w-[2px] before:h-3 before:rounded-full before:right-[calc(50%-5px)] before:top-[calc(50%-6px)] before:bg-black dark:before:bg-white after:bg-current before:bg-current'></div>
         </span>
       </div>
       <button
