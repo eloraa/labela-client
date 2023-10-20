@@ -40,7 +40,7 @@ export const Home = () => {
       <main className="md:px-10 px-5 py-10 mt-40 dark:text-white">
         <div className="mb-20">
           <h1 className="text-2xl font-black uppercase mb-12">Browse by brands</h1>
-          <div className="flex gap-10 md:gap-16 flex-wrap">
+          <div className="grid gap-10 md:gap-16 flex-wrap auto-cols-min grid-cols-3 md:grid-cols-6">
             {brandData.brands.map((brand, i) => (
               <div key={i} className="flex flex-col h-full">
                 <figure className="h-7">

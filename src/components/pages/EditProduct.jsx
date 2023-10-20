@@ -187,7 +187,7 @@ export const EditProduct = () => {
       <main className={`py-6 md:px-10 px-5 dark:text-white ${isCreating ? 'opacity-10 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
         <div className="flex items-center justify-between mb-12">
           <h1 className="text-2xl font-black uppercase">Edit Product</h1>
-          {editState && (
+          {(editState || selectedImage) && (
             <button onClick={() => {
               setEditState(false)
               setPhotoURL(product?.image || '');

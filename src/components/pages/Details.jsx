@@ -3,14 +3,13 @@ import { NotFound } from '../shared/NotFound';
 import { useState } from 'react';
 
 export const Details = () => {
+  const [cartValue, setCartValue] = useState(0);
 
-    const [cartValue, setCartValue] = useState(0)
-
-    const handleMinMax = (event, min, max, callback) => {
+  const handleMinMax = (event, min, max, callback) => {
     const value = Math.max(min, Math.min(max, Number(event.target.value)));
-    if(event.target.value === '') {
-        callback('')
-        return
+    if (event.target.value === '') {
+      callback('');
+      return;
     }
     callback(value);
   };
@@ -20,14 +19,16 @@ export const Details = () => {
   return (
     <main className="py-6 md:px-10 px-5 dark:text-white">
       <div>
-        <figure className="h-[420px] md:w-[300px] w-full">
-          <img className="w-full h-full object-contain" src={product.image} alt="" />
-        </figure>
-        <div className="mt-20 grid md:grid-cols-3 gap-16">
-          <div>
-            <h1 className="font-extrabold text-3xl md:text-5xl text-justify uppercase">{product.name}</h1>
+        <div className='grid md:grid-cols-[auto_1fr] gap-16'>
+          <figure className="h-[420px] md:w-[300px] w-full">
+            <img className="w-full h-full object-contain" src={product.image} alt="" />
+          </figure>
+          <div className='flex items-center justify-center'>
+            <h1 className="font-extrabold text-[8vw] leading-[1] text-justify uppercase">{product.name}</h1>
           </div>
-          <div className="w-full md:col-span-2">
+        </div>
+        <div className="mt-8 md:mt-2 gap-16">
+          <div className="w-full">
             <p className="text-sm">{product.description}</p>
             <div className="flex gap-2 md:gap-6 mt-6 items-center flex-wrap max-md:justify-between">
               <h2 className="font-bold">${product.price.toFixed(2)}</h2>
@@ -42,7 +43,7 @@ export const Details = () => {
               <div className="w-5 border-b-2 border-[#ddd]"></div>
               <h2 className="font-bold">{product.type}</h2>
             </div>
-            <div className='mt-6'>
+            <div className="mt-6">
               <form className="flex items-center gap-4 max-md:flex-wrap">
                 <div className="flex items-center gap-2 text-center rounded border-2 px-3 max-md:w-full">
                   <span className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9" onClick={() => setCartValue(cartValue <= 0 ? 0 : cartValue - 1)}>
@@ -58,7 +59,7 @@ export const Details = () => {
                   />
                   <span className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9" onClick={() => setCartValue(cartValue >= 9999 ? 9999 : cartValue + 1)}>
                     <div className='w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:right-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white before:absolute before:content-[""] before:w-[2px] before:h-3 before:rounded-full before:right-[calc(50%-5px)] before:top-[calc(50%-6px)] before:bg-black dark:before:bg-white'></div>
-                    </span>
+                  </span>
                 </div>
                 <button name="submit" className="bg-black h-full py-2 w-full text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
                   Add item to the Cart
