@@ -22,7 +22,7 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
 
   const handleMinMax = (event, min, max, callback) => {
     let target = event?.customTarget || event.target
-    const value = Math.max(min, Math.min(max, Number(event?.customTarget ? event.value : target.value)));
+    const value = Math.max(min, Math.min(max, Number(event?.customTarget ? event.value : target.value || 0)));
 
     disableButton(value, min, max)
 
@@ -35,7 +35,7 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
 
   useEffect(() => {
     disableButton(cartValue, 1, 9999)
-    if(parseInt(formRef.current.quantity.value) !== currentValue) setIsChanges(true)
+    if(parseInt(formRef.current.quantity.value || 0) !== currentValue) setIsChanges(true)
     else setIsChanges(false)
   }, [cartValue, currentValue])
 
@@ -44,7 +44,7 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
       <div className="flex items-center gap-2 text-center rounded border-2 px-3 max-md:w-full">
         <span
           className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9"
-          onClick={() => handleMinMax({ customTarget: formRef.current.quantity, value: parseInt(formRef.current.quantity.value) - 1 }, 1, 9999, setCartValue)}
+          onClick={() => handleMinMax({ customTarget: formRef.current.quantity, value: parseInt(formRef.current.quantity.value || 0) - 1 }, 1, 9999, setCartValue)}
         >
           <div className='minus w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:left-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white after:bg-current'></div>
         </span>
@@ -58,7 +58,7 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
         />
         <span
           className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9"
-          onClick={() => handleMinMax({ customTarget: formRef.current.quantity, value: parseInt(formRef.current.quantity.value) + 1 }, 1, 9999, setCartValue)}
+          onClick={() => handleMinMax({ customTarget: formRef.current.quantity, value: parseInt(formRef.current.quantity || 0) + 1 }, 1, 9999, setCartValue)}
         >
           <div className='plus w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:right-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white before:absolute before:content-[""] before:w-[2px] before:h-3 before:rounded-full before:right-[calc(50%-5px)] before:top-[calc(50%-6px)] before:bg-black dark:before:bg-white after:bg-current before:bg-current'></div>
         </span>
