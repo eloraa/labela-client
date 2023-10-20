@@ -6,15 +6,24 @@ import { CartContext } from '../providers/CartProviders';
 import { CartInput } from '../shared/CartInput';
 
 export const Details = () => {
-  const { addToCart } = useContext(CartContext)
+  const { addToCart, carts } = useContext(CartContext)
+  const product = useLoaderData();
+  const cartProduct = carts.find(c => c._id === product._id)
 
   const handFormSubmit = e => {
     e.preventDefault()
     const quantity = e.target.quantity.value
+
+    if(parseInt(quantity) + parseInt(cartProduct.quantity) > 9999) {
+      toast('You cannot exceed the quantity of 9999 in your cart. please proceed to Checkout.')
+      return
+    }
+
     if(quantity < 1) {
       toast('Item quantity must be at least 1')
       return
     }
+    
 
     const cartData = {
       productId: product._id,
@@ -23,7 +32,7 @@ export const Details = () => {
     addToCart(cartData, 'inc');
   }
 
-  const product = useLoaderData();
+
   if (product?.errors) return <NotFound alt={true}></NotFound>;
 
   return (
