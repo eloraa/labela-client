@@ -232,7 +232,7 @@ export const EditProduct = () => {
                 <div className="w-full">
                   <select
                     defaultValue={product.brandName}
-                    className="w-full focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
+                    className="w-full focus:border-black bg-white outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
                     name="brandName"
                   >
                     <option disabled={true} value={''}>
