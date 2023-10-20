@@ -13,7 +13,7 @@ export const Carts = () => {
         {carts.length ? carts.map((product, index) => <CartProduct key={index} product={product}></CartProduct>) : <div>You have no products in your Cart.</div>}
       </div>
       {carts.length ? (
-        <button className="bg-black dark:bg-dark dark:text-black mt-16 py-2.5 md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform text-sm">Checkout</button>
+        <button className="bg-black dark:bg-dark dark:text-black w-full md:w-auto mt-16 py-2.5 md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform text-sm">Checkout</button>
       ) : (
         ''
       )}
