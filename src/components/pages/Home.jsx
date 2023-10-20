@@ -48,7 +48,7 @@ export const Home = () => {
             {products.length ? products.map((product, index) => <Product key={index} product={product}></Product>) : <div>We have no product at this moment.</div>}
           </div>
           {products.length ? (
-            <div className="w-full mt-16 flex justify-center items-center">
+            <div className="w-full mt-16 flex md:justify-center items-center">
               <Link to='/store'>
                 <button className="bg-black py-2 w-full md:w-auto mx-auto md:px-24 px-0 text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
                   Shop All
