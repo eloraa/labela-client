@@ -15,6 +15,9 @@ import { AddProduct } from './components/pages/AddProduct';
 import { Details } from './components/pages/Details';
 import { EditProduct } from './components/pages/EditProduct';
 import { Store } from './components/pages/Store';
+import CartProvider from './components/providers/CartProviders';
+import { Carts } from './components/pages/Carts';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -25,37 +28,53 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
-        loader:  async () => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/latest`),
+        loader: async () => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/latest`),
       },
       {
         path: '/signin',
-        element: <SignIn></SignIn>
+        element: <SignIn></SignIn>,
       },
       {
         path: '/signup',
-        element: <Signup></Signup>
+        element: <Signup></Signup>,
       },
       {
         path: '/profile',
-        element: <PrivateRoute><Profile></Profile></PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: '/brand/:brand',
         element: <Brand></Brand>,
-        loader: async  ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand.toLowerCase()}`),
+        loader: async ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/brand/${params.brand.toLowerCase()}`),
       },
       {
         path: '/product/add',
-        element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <AddProduct></AddProduct>
+          </PrivateRoute>
+        ),
       },
       {
         path: '/product/:id',
-        element: <PrivateRoute><Details></Details></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <Details></Details>
+          </PrivateRoute>
+        ),
         loader: async ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/${params.id}`),
       },
       {
         path: '/product/edit/:id',
-        element: <PrivateRoute><EditProduct></EditProduct></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <EditProduct></EditProduct>
+          </PrivateRoute>
+        ),
         loader: async ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/${params.id}`),
       },
       {
@@ -63,8 +82,12 @@ const router = createBrowserRouter([
         element: <Store></Store>,
         loader: async ({ request }) => {
           const page = new URL(request.url).searchParams.get('page');
-          return await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product?page=${page || 1}`)
+          return await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product?page=${page || 1}`);
         },
+      },
+      {
+        path: '/cart', 
+        element: <PrivateRoute><Carts></Carts></PrivateRoute>
       }
     ],
   },
@@ -73,7 +96,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <CartProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </CartProvider>
     </AuthProvider>
   </React.StrictMode>
 );

@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../providers/AuthProviders';
 import { toast } from 'react-toastify';
+import { CartContext } from '../providers/CartProviders';
 
 export const Header = ({ className }) => {
   const [navOpen, setNavOpen] = useState(false);
   const { user, signOutUser } = useContext(AuthContext);
+  const { carts } = useContext(CartContext)
+
 
   let location = useLocation();
 
@@ -68,9 +71,10 @@ export const Header = ({ className }) => {
               <NavLink
                 state={location.pathname}
                 to="/cart"
-                className={({ isActive }) => (isActive ? 'border-b dark:border-dark border-black max-md:border-b max-md:w-full block max-md:py-4' : 'max-md:py-4 block md:border-b-transparent border-b-2 dark:border-black')}
+                className={({ isActive }) => (isActive ? 'border-b dark:border-dark border-black max-md:border-b max-md:w-full max-md:py-4 relative flex items-center gap-2' : 'max-md:py-4 md:border-b-transparent border-b-2 dark:border-black relative flex items-center gap-2')}
               >
                 My Cart
+                { carts.length ? <div className='dark:bg-dark dark:text-black bg-black w-6 h-6 font-bold rounded-full text-white flex justify-center items-center'>{carts.length}</div> : '' }
               </NavLink>
             </li>
           </ul>

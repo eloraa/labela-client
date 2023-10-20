@@ -3,12 +3,12 @@ import { NotFound } from '../shared/NotFound';
 import { Banner } from '../shared/Banner';
 import { SwiperSlide } from 'swiper/react';
 import { useContext } from 'react';
-import { BrandContext } from '../Root';
+import { DataContext } from '../Root';
 import { Product } from '../shared/Product';
 
 export const Brand = () => {
   const data = useLoaderData();
-  const { brandData } = useContext(BrandContext);
+  const { brandData } = useContext(DataContext);
   const params = useParams();
   const brand = params.brand;
 
@@ -37,7 +37,7 @@ export const Brand = () => {
           {brand} <span className="text-neutral-300 dark:text-neutral-700">- Brand</span>
         </h1>
 
-        <div className="grid md:grid-cols-2 lg:grid-flow-cols-3 xl:grid-cols-4 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {data.length ? data.map((product, index) => <Product key={index} product={product}></Product>) : <div>This brand has no products.</div>}
         </div>
       </main>

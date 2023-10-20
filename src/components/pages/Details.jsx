@@ -1,18 +1,28 @@
 import { useLoaderData } from 'react-router-dom';
 import { NotFound } from '../shared/NotFound';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { toast } from 'react-toastify';
+import { CartContext } from '../providers/CartProviders';
+import { CartInput } from '../shared/CartInput';
 
 export const Details = () => {
-  const [cartValue, setCartValue] = useState(0);
+  const { addToCart } = useContext(CartContext)
 
-  const handleMinMax = (event, min, max, callback) => {
-    const value = Math.max(min, Math.min(max, Number(event.target.value)));
-    if (event.target.value === '') {
-      callback('');
-      return;
+  const handFormSubmit = e => {
+    e.preventDefault()
+    const quantity = e.target.quantity.value
+    if(quantity < 1) {
+      toast('Item quantity must be at least 1')
+      return
     }
-    callback(value);
-  };
+
+    const cartData = {
+      productId: product._id,
+      quantity
+    }
+    addToCart(cartData, 'inc');
+  }
+
   const product = useLoaderData();
   if (product?.errors) return <NotFound alt={true}></NotFound>;
 
@@ -44,27 +54,7 @@ export const Details = () => {
               <h2 className="font-bold">{product.type}</h2>
             </div>
             <div className="mt-6">
-              <form className="flex items-center gap-4 max-md:flex-wrap">
-                <div className="flex items-center gap-2 text-center rounded border-2 px-3 max-md:w-full">
-                  <span className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9" onClick={() => setCartValue(cartValue <= 0 ? 0 : cartValue - 1)}>
-                    <div className='w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:left-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white'></div>
-                  </span>
-                  <input
-                    onChange={e => handleMinMax(e, 1, 9999, setCartValue)}
-                    className="w-full text-center focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
-                    type="number"
-                    name="quantity"
-                    placeholder="Quantity"
-                    value={cartValue}
-                  />
-                  <span className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9" onClick={() => setCartValue(cartValue >= 9999 ? 9999 : cartValue + 1)}>
-                    <div className='w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:right-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white before:absolute before:content-[""] before:w-[2px] before:h-3 before:rounded-full before:right-[calc(50%-5px)] before:top-[calc(50%-6px)] before:bg-black dark:before:bg-white'></div>
-                  </span>
-                </div>
-                <button name="submit" className="bg-black h-full py-2 w-full text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
-                  Add item to the Cart
-                </button>
-              </form>
+              <CartInput className='md:grid-cols-[auto_1fr]' handFormSubmit={handFormSubmit}>Add the item to the Cart</CartInput>
             </div>
           </div>
         </div>

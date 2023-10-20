@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import { About } from '../shared/About';
 import { Banner } from '../shared/Banner';
-import { BrandContext } from '../Root';
+import { DataContext } from '../Root';
 import { Link, useLoaderData } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
 import { Product } from '../shared/Product';
 
 export const Home = () => {
-  const { brandData } = useContext(BrandContext);
+  const { brandData } = useContext(DataContext);
 
   const products = useLoaderData();
 
@@ -44,7 +44,7 @@ export const Home = () => {
         <div className="mb-20">
           <h1 className="text-2xl font-black uppercase mb-12">Latest Collection</h1>
 
-          <div className="grid md:grid-cols-2 lg:grid-flow-cols-3 xl:grid-cols-4 gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
             {products.length ? products.map((product, index) => <Product key={index} product={product}></Product>) : <div>We have no product at this moment.</div>}
           </div>
           {products.length ? (

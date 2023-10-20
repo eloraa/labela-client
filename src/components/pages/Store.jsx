@@ -15,7 +15,7 @@ export const Store = () => {
           </h4>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-flow-cols-3 xl:grid-cols-4 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
           {data.products.length ? data.products.map((product, index) => <Product key={index} product={product}></Product>) : <div>We have no product at this moment.</div>}
         </div>
         {data.totalPages ? (
