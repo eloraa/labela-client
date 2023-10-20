@@ -1,9 +1,8 @@
-import { useLoaderData, useSearchParams } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { Product } from '../shared/Product';
 
 export const Store = () => {
   const data = useLoaderData();
-  let [, setPageParams] = useSearchParams();
 
   return (
     <main className="md:px-10 px-5 py-10 mt-20 dark:text-white">
@@ -21,7 +20,7 @@ export const Store = () => {
         {data.totalPages ? (
           <div className="w-full mt-16 flex justify-center items-center gap-5">
             {Array.from({ length: data.totalPages }, (_, index) => (
-              <div key={index}>{index + 1 === data.currentPage ? <div className='font-bold cursor-pointer'>{index + 1}</div> : <div className='cursor-pointer' onClick={() => setPageParams({ page: index + 1 })}>{index + 1}</div>}</div>
+              <div key={index}>{index + 1 === data.currentPage ? <div className='font-bold cursor-pointer'>{index + 1}</div> : <Link to={`/store?page=${index + 1}`} className='cursor-pointer'>{index + 1}</Link>}</div>
             ))}
           </div>
         ) : (

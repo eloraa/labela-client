@@ -46,7 +46,11 @@ const CartProvider = ({ children }) => {
           return;
         }
         if (response.success) {
-          toast('Item successfully added to the Cart');
+            if(method === 'inc') {
+                toast('Item successfully added to the Cart');
+            } else {
+                toast('Successfully updated the item to the Cart');
+            }
         }
       })
       .catch(() => {
