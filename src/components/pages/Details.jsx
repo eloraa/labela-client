@@ -14,7 +14,7 @@ export const Details = () => {
     e.preventDefault()
     const quantity = e.target.quantity.value
 
-    if(parseInt(quantity) + parseInt(cartProduct.quantity) > 9999) {
+    if(parseInt(quantity) + parseInt(cartProduct?.quantity) > 9999) {
       toast('You cannot exceed the quantity of 9999 in your cart. please proceed to Checkout.')
       return
     }
