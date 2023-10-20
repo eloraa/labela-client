@@ -31,7 +31,7 @@ export const CartProduct = ({ product }) => {
           <h1 className="font-bold text-ellipsis overflow-hidden">{product.name}</h1>
           <h1>${product.price.toFixed(2)}</h1>
           <div className="mt-6">
-            <CartInput className='grid-cols-[1fr_auto]' handFormSubmit={handFormSubmit} value={product.quantity}>
+            <CartInput currentValue={product?.quantity} className='grid-cols-[1fr_auto]' handFormSubmit={handFormSubmit} value={product.quantity}>
               Update
             </CartInput>
           </div>
