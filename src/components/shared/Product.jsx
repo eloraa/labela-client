@@ -11,7 +11,7 @@ export const Product = ({ product }) => {
   return (
     <div className="md:max-w-[300px] w-full mx-auto flex justify-center items-center">
       <div className="w-full">
-        <figure className="h-[420px] bg-gray-50 dark:bg-[#222]">
+        <figure className="h-[420px] bg-gray-50 dark:bg-[#111]">
           <img className="w-full h-full object-contain" src={product.image} alt="" />
         </figure>
         <h4 className="text-neutral-400 font-medium text-sm capitalize mt-4">{product.type}</h4>
