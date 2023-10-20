@@ -265,7 +265,7 @@ export const EditProduct = () => {
                     <span className="font-bold whitespace-nowrap">$</span>
                     <input
                       onChange={e => handleMinMax(e, 1, 9999999, setPriceValue)}
-                      className="w-full focus:border-black outline-none border-2 border-y-transparent border-r-transparent py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent border-t-0 dark:focus:border-dark"
+                      className="w-full focus:border-black outline-none border-2 border-y-transparent border-r-transparent py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
                       type="number"
                       name="price"
                       placeholder="Price"

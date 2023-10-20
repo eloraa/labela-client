@@ -221,7 +221,7 @@ export const AddProduct = () => {
                     <span className="font-bold whitespace-nowrap">$</span>
                     <input
                       onChange={e => handleMinMax(e, 1, 9999999, setPriceValue)}
-                      className="w-full focus:border-black outline-none border-l-2 focus:border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
+                      className="w-full focus:border-black outline-none border-y-transparent border-r-transparent focus:border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
                       type="number"
                       name="price"
                       placeholder="Price"
@@ -235,7 +235,7 @@ export const AddProduct = () => {
                   <div className="w-full flex items-center gap-2 pr-4 rounded border-2 dark:border-transparent dark:bg-[#222]">
                     <input
                       onChange={e => handleMinMax(e, 1, 5, setRatingValue)}
-                      className="w-full focus:border-black outline-none border-r-2 focus:border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
+                      className="w-full focus:border-black outline-none border-y-transparent border-l-transparent focus:border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
                       type="number"
                       name="rating"
                       placeholder="Rating"
