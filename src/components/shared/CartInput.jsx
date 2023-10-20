@@ -26,7 +26,7 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
 
     disableButton(value, min, max)
 
-    if (target.value === '') {
+    if (target.value === '' && !event?.customTarget) {
       callback('');
       return;
     }
@@ -58,7 +58,7 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
         />
         <span
           className="font-bold whitespace-nowrap px-4 relative cursor-pointer h-9"
-          onClick={() => handleMinMax({ customTarget: formRef.current.quantity, value: parseInt(formRef.current.quantity || 0) + 1 }, 1, 9999, setCartValue)}
+          onClick={() => handleMinMax({ customTarget: formRef.current.quantity, value: parseInt(formRef.current.quantity.value || 0) + 1 }, 1, 9999, setCartValue)}
         >
           <div className='plus w-full h-full after:absolute after:content-[""] after:w-3 after:h-[2px] after:rounded-full after:right-[calc(50%-10px)] after:top-[calc(50%-1px)] after:bg-black dark:after:bg-white before:absolute before:content-[""] before:w-[2px] before:h-3 before:rounded-full before:right-[calc(50%-5px)] before:top-[calc(50%-6px)] before:bg-black dark:before:bg-white after:bg-current before:bg-current'></div>
         </span>
