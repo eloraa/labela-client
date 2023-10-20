@@ -24,6 +24,7 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+        loader:  async () => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/latest`),
       },
       {
         path: '/signin',

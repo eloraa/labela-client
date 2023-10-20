@@ -281,7 +281,7 @@ export const AddProduct = () => {
               </li>
             </ul>
 
-            <button name="submit" className="bg-black py-2 md:px-24 w-full px-0 mt-6 text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
+            <button name="submit" className="bg-black py-2 w-full px-0 mt-6 text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
               Add Product
             </button>
           </form>
