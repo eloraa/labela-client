@@ -8,7 +8,7 @@ export const Product = ({ product }) => {
   const { user } = useContext(AuthContext);
   const location = useLocation()
   return (
-    <div className="md:max-w-[300px] mx-auto flex justify-center items-center">
+    <div className="md:max-w-[300px] w-full mx-auto flex justify-center items-center">
       <div className="w-full">
         <figure className="h-[420px] bg-gray-50 dark:bg-gray-950">
           <img className="w-full h-full object-contain" src={product.image} alt="" />
