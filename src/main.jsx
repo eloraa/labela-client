@@ -14,6 +14,7 @@ import { Brand } from './components/pages/Brand';
 import { AddProduct } from './components/pages/AddProduct';
 import { Details } from './components/pages/Details';
 import { EditProduct } from './components/pages/EditProduct';
+import { Store } from './components/pages/Store';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -56,6 +57,14 @@ const router = createBrowserRouter([
         path: '/product/edit/:id',
         element: <PrivateRoute><EditProduct></EditProduct></PrivateRoute>,
         loader: async ({ params }) => await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product/${params.id}`),
+      },
+      {
+        path: '/store',
+        element: <Store></Store>,
+        loader: async ({ request }) => {
+          const page = new URL(request.url).searchParams.get('page');
+          return await fetch(`${import.meta.env.VITE_BACKENDSERVER}/product?page=${page || 1}`)
+        },
       }
     ],
   },

@@ -17,7 +17,7 @@ export const Product = ({ product }) => {
 
         <div className="font-bold text-[1.05rem] capitalize mt-1">
           <Link to={`/product/${product._id}`}>
-            <h1 className="whitespace-nowrap text-ellipsis overflow-hidden">{product.name}</h1>
+            <h1 className="whitespace-nowrap text-ellipsis overflow-hidden max-w-[calc(100vw-40px)]">{product.name}</h1>
           </Link>
           <div className="flex gap-2 items-center">
             <h2>${product.price.toFixed(2)}</h2>
