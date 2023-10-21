@@ -1,6 +1,6 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../providers/AuthProviders';
 import { toast } from 'react-toastify';
 import { CartContext } from '../providers/CartProviders';
@@ -10,6 +10,22 @@ export const Header = ({ className }) => {
   const { user, signOutUser } = useContext(AuthContext);
   const { carts } = useContext(CartContext)
 
+  const headerRef = useRef(null)
+
+  useEffect(() => {
+    if(headerRef?.current) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY || window.pageYOffset;
+        if(scrollY >= 50) {
+          headerRef.current.style.paddingTop = '.85rem'
+          headerRef.current.style.paddingBottom = '.85rem'
+        } else {
+          headerRef.current.removeAttribute('style')
+        }
+      })
+    }
+    else () => {}
+  }, [headerRef])
 
   let location = useLocation();
 
@@ -24,7 +40,7 @@ export const Header = ({ className }) => {
   };
 
   return (
-    <header className={`py-6 md:px-10 px-5 flex items-center text-sm justify-between sticky top-0 z-[999] dark:text-white ${className ? className : ''}`}>
+    <header ref={headerRef} className={`py-6 md:px-10 px-5 flex items-center text-sm justify-between sticky top-0 z-[999] dark:text-white transition-[padding] duration-100 ${className ? className : ''}`}>
       <Link to="/">
         <h1 className="font-bold uppercase text-base flex items-center gap-2 relative z-[9999]">
           <div className="w-8 h-8">
