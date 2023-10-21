@@ -24,9 +24,9 @@ export const SignIn = () => {
 
   if(preloader) preloader.open()
   useEffect(() => {
-    if(preloader && user) preloader.close()
+    if(preloader) preloader.close()
     else return () => {}
-  }, [user, preloader])
+  }, [preloader])
 
   const handleGoogleLogin = () => {
     googleSignin()

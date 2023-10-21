@@ -10,6 +10,7 @@ export const Header = ({ className }) => {
   const { user, signOutUser } = useContext(AuthContext);
   const { carts } = useContext(CartContext)
 
+  console.log(user);
 
   let location = useLocation();
 
