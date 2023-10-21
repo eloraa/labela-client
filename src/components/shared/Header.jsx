@@ -23,7 +23,7 @@ export const Header = ({ className }) => {
   };
 
   return (
-    <header className={`py-[.85rem] mt-4 md:px-10 px-5 flex items-center text-sm justify-between sticky top-0 z-[999] dark:text-white transition-[padding] duration-100 ${className ? className : ''}`}>
+    <header className={`py-[.85rem] md:px-10 px-5 flex items-center text-sm justify-between sticky top-0 z-[999] dark:text-white transition-[padding,margin-top] duration-100 ${className ? className : ''} ${navOpen ? 'md:mt-4' : 'mt-4'}`}>
       <Link to="/">
         <h1 className="font-bold uppercase text-base flex items-center gap-2 relative z-[9999]">
           <div className="w-8 h-8">
@@ -39,7 +39,7 @@ export const Header = ({ className }) => {
           Labela
         </h1>
       </Link>
-      <div className="absolute inset-0 backdrop-blur bg-white/80 md:-z-20 dark:bg-black/95"></div>
+      <div className={`absolute inset-0 md:-z-20 dark:bg-black/95 ${navOpen ? 'md:bg-white/80 md:backdrop-blur' : 'bg-white/80 backdrop-blur'}`}></div>
       <div className="flex items-center gap-4 md:hidden">
         {user && !navOpen && (
           <Link to="/profile" className="w-8 h-8 overflow-hidden rounded-full bg-[#ddd] z-10">
@@ -51,8 +51,8 @@ export const Header = ({ className }) => {
         </button>
       </div>
       <div
-        className={`flex gap-10 flex-col -z-10 fixed inset-0 max-md:bg-white/80 dark:bg-black/80 bottom-0 top-20 px-5 backdrop-blur h-[calc(100vh-5rem)] pt-12 md:flex-row md:static md:h-auto md:p-0 transition-transform duration-500 ${
-          navOpen ? 'translate-y-0' : 'max-md:-translate-y-[calc(100%+5rem)]'
+        className={`flex gap-10 flex-col -z-10 fixed inset-0 max-md:bg-white/80 dark:bg-black/80 bottom-0 top-0 px-5 backdrop-blur h-screen pt-24 md:flex-row md:static md:h-auto md:p-0 transition-transform duration-500 ${
+          navOpen ? 'translate-y-0' : 'max-md:-translate-y-full'
         }`}
       >
         {((location.pathname === '/signin' && location.pathname === '/signup') || user) && (
