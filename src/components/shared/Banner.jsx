@@ -12,7 +12,7 @@ export const Banner = ({ children }) => {
   return (
     <div className="h-[560px] relative">
       {children.length > 1 && <h4 className="text-sm absolute right-5 md:right-10 bottom-10 z-10 text-white">drag/scroll</h4>}
-      <Swiper className="h-full w-full" mousewheel={true} loop={true} direction="vertical" autoplay={{ delay: 3000 }}>
+      <Swiper className="h-full w-full" mousewheel={false} loop={true} direction="vertical" autoplay={{ delay: 3000 }}>
         {children}
       </Swiper>
     </div>
