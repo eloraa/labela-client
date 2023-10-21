@@ -46,7 +46,7 @@ export const Details = () => {
             <img className="w-full h-full object-contain" src={product.image} alt="" />
           </figure>
           <div className='flex items-center justify-center'>
-            <h1 className="font-extrabold text-[8vw] leading-[1] text-justify uppercase">{product.name}</h1>
+            <h1 className="font-extrabold text-[7vw] leading-[1] text-justify uppercase">{product.name}</h1>
           </div>
         </div>
         <div className="mt-8 md:mt-2 gap-16">
