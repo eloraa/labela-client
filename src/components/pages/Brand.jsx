@@ -2,15 +2,25 @@ import { useLoaderData, useParams } from 'react-router-dom';
 import { NotFound } from '../shared/NotFound';
 import { Banner } from '../shared/Banner';
 import { SwiperSlide } from 'swiper/react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { DataContext } from '../Root';
 import { Product } from '../shared/Product';
+import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const Brand = () => {
   const data = useLoaderData();
   const { brandData } = useContext(DataContext);
   const params = useParams();
   const brand = params.brand;
+
+  const { preloader } = useContext(PreloaderContext)
+
+  if(preloader) preloader.open()
+  useEffect(() => {
+    if(preloader && brandData) preloader.close()
+    else return () => {}
+  }, [brandData, preloader])
+
 
   if (data?.errors) return <NotFound alt={true}></NotFound>;
   return (

@@ -1,9 +1,19 @@
 import { Link, useLoaderData } from 'react-router-dom';
 import { Product } from '../shared/Product';
+import { PreloaderContext } from '../providers/PreloaderProvider';
+import { useContext, useEffect } from 'react';
 
 export const Store = () => {
   const data = useLoaderData();
 
+    
+  const { preloader } = useContext(PreloaderContext)
+
+  if(preloader) preloader.open()
+  useEffect(() => {
+    if(preloader && data) preloader.close()
+    else return () => {}
+  }, [data, preloader])
   return (
     <main className="md:px-10 px-5 py-10 mt-20 dark:text-white">
       <div className="mb-20">

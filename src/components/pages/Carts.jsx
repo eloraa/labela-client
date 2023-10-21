@@ -1,9 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CartContext } from '../providers/CartProviders';
 import { CartProduct } from '../shared/CartProduct';
+import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const Carts = () => {
   const { carts } = useContext(CartContext);
+
+  const { preloader } = useContext(PreloaderContext)
+
+  if(preloader) preloader.open()
+  
+  useEffect(() => {
+    if(preloader && carts) preloader.close()
+    else return () => {}
+  }, [carts, preloader])
 
   return (
     <main className="md:px-10 px-5 py-10 mt-20 dark:text-white">

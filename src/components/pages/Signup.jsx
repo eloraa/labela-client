@@ -3,6 +3,7 @@ import { GoogleIcon } from '../utils/SvgIcon';
 import { useContext, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../providers/AuthProviders';
+import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const Signup = () => {
   const warning = useRef(null);
@@ -16,6 +17,15 @@ export const Signup = () => {
       navigate('/');
     }
   }, [user, navigate]);
+
+    
+  const { preloader } = useContext(PreloaderContext)
+
+  if(preloader) preloader.open()
+  useEffect(() => {
+    if(preloader && user) preloader.close()
+    else return () => {}
+  }, [user, preloader])
 
   
   const handleGoogleLogin = () => {

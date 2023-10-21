@@ -1,10 +1,11 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { storage } from '../utils/firebase.config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DataContext } from '../Root';
 import { validateProduct } from '../utils/utils';
+import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const AddProduct = () => {
   const formRef = useRef(null);
@@ -15,6 +16,15 @@ export const AddProduct = () => {
   const [priceValue, setPriceValue] = useState('');
   const [uploadedImage, setUploadedImage] = useState('_');
   const location = useLocation()
+
+    
+  const { preloader } = useContext(PreloaderContext)
+
+  if(preloader) preloader.open()
+  useEffect(() => {
+    if(preloader && brandData) preloader.close()
+    else return () => {}
+  }, [brandData, preloader])
 
   const handleMinMax = (event, min, max, callback) => {
     const value = Math.max(min, Math.min(max, Number(event.target.value)));
@@ -189,7 +199,7 @@ export const AddProduct = () => {
                 <div className="w-full">
                   <select
                     defaultValue=""
-                    className="w-full focus:border-black outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
+                    className="w-full focus:border-black bg-white outline-none border-2 py-2 px-4 disabled:border-none disabled:pl-0 rounded dark:bg-[#222] dark:border-transparent dark:focus:border-dark"
                     name="brandName"
                   >
                     <option disabled={true} value={''}>

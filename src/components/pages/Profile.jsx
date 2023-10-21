@@ -1,9 +1,10 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { storage } from '../utils/firebase.config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProviders';
+import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const Profile = () => {
   const formRef = useRef(null);
@@ -13,6 +14,15 @@ export const Profile = () => {
   const [displayNameValue, setdisplayNameValue] = useState(user?.displayName ? user?.displayName : '');
   const [photoURL, setPhotoURL] = useState(user?.photoURL ? user?.photoURL : '');
   const [selectedImage, setSelectedImage] = useState(null);
+
+  
+  const { preloader } = useContext(PreloaderContext)
+
+  if(preloader) preloader.open()
+  useEffect(() => {
+    if(preloader && user) preloader.close()
+    else return () => {}
+  }, [user, preloader])
 
   const navigate = useNavigate();
 
