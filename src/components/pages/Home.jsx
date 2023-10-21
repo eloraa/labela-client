@@ -40,7 +40,7 @@ export const Home = () => {
         </SwiperSlide>
       </Banner>
 
-      <main className="md:px-10 px-5 py-10 mt-40 dark:text-white">
+      <main className="md:px-10 px-5 py-10 mt-10 dark:text-white">
         <div className="mb-20">
           <h1 className="text-2xl font-black uppercase mb-12">Latest Collection</h1>
 
