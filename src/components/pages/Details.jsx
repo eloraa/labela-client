@@ -1,23 +1,16 @@
 import { useLoaderData } from 'react-router-dom';
 import { NotFound } from '../shared/NotFound';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { toast } from 'react-toastify';
 import { CartContext } from '../providers/CartProviders';
 import { CartInput } from '../shared/CartInput';
-import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const Details = () => {
   const { addToCart, carts } = useContext(CartContext)
   const product = useLoaderData();
   const cartProduct = carts.find(c => c._id === product._id)
 
-  
-  const { preloader } = useContext(PreloaderContext)
 
-  useEffect(() => {
-    if(preloader && carts && product) preloader.close()
-    else return () => {}
-  }, [carts, product, preloader])
 
 
   const handFormSubmit = e => {

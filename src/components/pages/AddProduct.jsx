@@ -1,11 +1,10 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { storage } from '../utils/firebase.config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DataContext } from '../Root';
 import { validateProduct } from '../utils/utils';
-import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const AddProduct = () => {
   const formRef = useRef(null);
@@ -18,13 +17,6 @@ export const AddProduct = () => {
   const location = useLocation()
 
     
-  const { preloader } = useContext(PreloaderContext)
-
-  if(preloader) preloader.open()
-  useEffect(() => {
-    if(preloader && brandData) preloader.close()
-    else return () => {}
-  }, [brandData, preloader])
 
   const handleMinMax = (event, min, max, callback) => {
     const value = Math.max(min, Math.min(max, Number(event.target.value)));

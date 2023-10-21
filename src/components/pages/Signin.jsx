@@ -3,7 +3,6 @@ import { AuthContext } from '../providers/AuthProviders';
 import { useContext, useEffect, useRef } from 'react';
 import { GoogleIcon } from '../utils/SvgIcon';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const SignIn = () => {
   const { signIn, user, googleSignin, resetPassword } = useContext(AuthContext);
@@ -19,14 +18,6 @@ export const SignIn = () => {
     }
   }, [user, navigate]);
 
-    
-  const { preloader } = useContext(PreloaderContext)
-
-  if(preloader) preloader.open()
-  useEffect(() => {
-    if(preloader) preloader.close()
-    else return () => {}
-  }, [preloader])
 
   const handleGoogleLogin = () => {
     googleSignin()

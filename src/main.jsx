@@ -17,7 +17,6 @@ import { EditProduct } from './components/pages/EditProduct';
 import { Store } from './components/pages/Store';
 import CartProvider from './components/providers/CartProviders';
 import { Carts } from './components/pages/Carts';
-import PreloaderProvider from './components/providers/PreloaderProvider';
 
 const router = createBrowserRouter([
   {
@@ -100,12 +99,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <PreloaderProvider>
-      <AuthProvider>
-        <CartProvider>
-          <RouterProvider router={router}></RouterProvider>
-        </CartProvider>
-      </AuthProvider>
-    </PreloaderProvider>
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </CartProvider>
+    </AuthProvider>
   </React.StrictMode>
 );

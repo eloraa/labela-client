@@ -1,24 +1,15 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { About } from '../shared/About';
 import { Banner } from '../shared/Banner';
 import { DataContext } from '../Root';
 import { Link, useLoaderData } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
 import { Product } from '../shared/Product';
-import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const Home = () => {
   const { brandData } = useContext(DataContext);
 
   const products = useLoaderData();
-
-  const { preloader } = useContext(PreloaderContext)
-
-  if(preloader) preloader.open()
-  useEffect(() => {
-    if(preloader && brandData) preloader.close()
-    else return () => {}
-  }, [brandData, preloader])
 
   return (
     <>

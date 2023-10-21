@@ -1,11 +1,10 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { storage } from '../utils/firebase.config';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { DataContext } from '../Root';
 import { objIsEqual, validateProduct } from '../utils/utils';
-import { PreloaderContext } from '../providers/PreloaderProvider';
 
 export const EditProduct = () => {
   const formRef = useRef(null);
@@ -20,13 +19,6 @@ export const EditProduct = () => {
   const [photoURL, setPhotoURL] = useState(product?.image || '');
   const [ratingValue, setRatingValue] = useState(product.rating || '');
   const [priceValue, setPriceValue] = useState(product.price || '');
-  const { preloader } = useContext(PreloaderContext)
-
-  if(preloader) preloader.open()
-  useEffect(() => {
-    if(preloader && product, brandData) preloader.close()
-    else return () => {}
-  }, [product, brandData, preloader])
 
 
 
