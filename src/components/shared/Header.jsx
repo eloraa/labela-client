@@ -8,7 +8,7 @@ import { CartContext } from '../providers/CartProviders';
 export const Header = ({ className }) => {
   const [navOpen, setNavOpen] = useState(false);
   const { user, signOutUser } = useContext(AuthContext);
-  const { carts } = useContext(CartContext)
+  const { carts, setCarts } = useContext(CartContext)
 
   let location = useLocation();
 
@@ -18,7 +18,10 @@ export const Header = ({ className }) => {
 
   const handleSignOut = () => {
     signOutUser()
-      .then(() => toast('Signed out successfully.'))
+      .then(() => {
+        setCarts([])
+        toast('Signed out successfully.')
+      })
       .catch(() => toast('An error occurred. Please try again later'));
   };
 

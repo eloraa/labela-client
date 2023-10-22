@@ -93,7 +93,7 @@ const CartProvider = ({ children }) => {
       });
   };
 
-  return <CartContext.Provider value={{ carts, addToCart, removeCartItem, isUpdating }}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={{ carts, setCarts, addToCart, removeCartItem, isUpdating }}>{children}</CartContext.Provider>;
 };
 
 CartProvider.propTypes = {
