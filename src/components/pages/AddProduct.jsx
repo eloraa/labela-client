@@ -5,6 +5,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DataContext } from '../Root';
 import { validateProduct } from '../utils/utils';
+import { Spinner } from '../shared/Spinner';
 
 export const AddProduct = () => {
   const formRef = useRef(null);
@@ -14,15 +15,13 @@ export const AddProduct = () => {
   const [ratingValue, setRatingValue] = useState('');
   const [priceValue, setPriceValue] = useState('');
   const [uploadedImage, setUploadedImage] = useState('_');
-  const location = useLocation()
-
-    
+  const location = useLocation();
 
   const handleMinMax = (event, min, max, callback) => {
     const value = Math.max(min, Math.min(max, Number(event.target.value)));
-    if(event.target.value === '') {
-        callback('')
-        return
+    if (event.target.value === '') {
+      callback('');
+      return;
     }
     callback(value);
   };
@@ -111,8 +110,8 @@ export const AddProduct = () => {
     };
 
     if (validateProduct(data)) {
-        toast('Check your input data.')
-        return
+      toast('Check your input data.');
+      return;
     }
 
     if (file && uploadedImage === '_') {
@@ -158,7 +157,7 @@ export const AddProduct = () => {
 
   return (
     <>
-      <main className={`py-6 md:px-10 px-5 dark:text-white ${isCreating ? 'opacity-10 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
+      <main className={`py-6 md:px-10 px-5 dark:text-white ${isCreating ? 'opacity-50 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
         <h1 className="text-2xl font-black uppercase mb-12">Add Product</h1>
 
         <div className="mb-20 mt-5 grid md:grid-cols-[auto_1fr] gap-10">
@@ -283,8 +282,14 @@ export const AddProduct = () => {
               </li>
             </ul>
 
-            <button name="submit" className="bg-black py-2 w-full px-0 mt-6 text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
-              Add Product
+            <button name="submit" className="bg-black py-2 w-full px-0 mt-6 text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black relative">
+              {isCreating ? (
+                <>
+                  <Spinner></Spinner> <span className="opacity-0 invisible pointer-events-none">Add Product</span>
+                </>
+              ) : (
+                'Add Product'
+              )}
             </button>
           </form>
         </div>

@@ -65,7 +65,7 @@ export const CartInput = ({ children, handFormSubmit, value, currentValue, class
       </div>
       <button
         name="submit"
-        className={`bg-black h-full py-2 px-8 w-full text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black ${
+        className={`bg-black relative h-full py-2 px-8 w-full text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black ${
           !isChanged && currentValue ? 'opacity-0 invisible pointer-events-none select-none' : ''
         }`}
       >

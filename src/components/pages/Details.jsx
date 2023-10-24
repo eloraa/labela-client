@@ -1,12 +1,14 @@
 import { useLoaderData } from 'react-router-dom';
 import { NotFound } from '../shared/NotFound';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { CartContext } from '../providers/CartProviders';
 import { CartInput } from '../shared/CartInput';
+import { Spinner } from '../shared/Spinner';
 
 export const Details = () => {
   const { addToCart, carts } = useContext(CartContext)
+  const [isUpdating, setIsUpdating] = useState(false)
   const product = useLoaderData();
   const cartProduct = carts.find(c => c._id === product._id)
 
@@ -15,15 +17,18 @@ export const Details = () => {
 
   const handFormSubmit = e => {
     e.preventDefault()
+    setIsUpdating(true)
     const quantity = e.target.quantity.value
 
     if(parseInt(quantity) + parseInt(cartProduct?.quantity) > 9999) {
       toast('You cannot exceed the quantity of 9999 in your cart. please proceed to Checkout.')
+      setIsUpdating(false)
       return
     }
 
     if(quantity < 1) {
       toast('Item quantity must be at least 1')
+      setIsUpdating(false)
       return
     }
     
@@ -32,7 +37,7 @@ export const Details = () => {
       productId: product._id,
       quantity
     }
-    addToCart(cartData, 'inc');
+    addToCart(cartData, 'inc').then(() => setIsUpdating(false))
   }
 
 
@@ -66,7 +71,15 @@ export const Details = () => {
               <h2 className="font-bold">{product.type}</h2>
             </div>
             <div className="mt-6">
-              <CartInput className='md:grid-cols-[auto_1fr]' handFormSubmit={handFormSubmit}>Add the item to the Cart</CartInput>
+              <CartInput className='md:grid-cols-[auto_1fr]' handFormSubmit={handFormSubmit}>
+              {isUpdating ? (
+                <>
+                  <Spinner></Spinner> <span className="opacity-0 invisible pointer-events-none">Add item to the cart</span>
+                </>
+              ) : (
+                'Add item to the cart'
+              )}
+            </CartInput>
             </div>
           </div>
         </div>

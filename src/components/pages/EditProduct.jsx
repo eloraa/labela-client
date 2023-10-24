@@ -5,6 +5,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { DataContext } from '../Root';
 import { objIsEqual, validateProduct } from '../utils/utils';
+import { Spinner } from '../shared/Spinner';
 
 export const EditProduct = () => {
   const formRef = useRef(null);
@@ -19,8 +20,6 @@ export const EditProduct = () => {
   const [photoURL, setPhotoURL] = useState(product?.image || '');
   const [ratingValue, setRatingValue] = useState(product.rating || '');
   const [priceValue, setPriceValue] = useState(product.price || '');
-
-
 
   const handleMinMax = (event, min, max, callback) => {
     const value = Math.max(min, Math.min(max, Number(event.target.value)));
@@ -133,8 +132,8 @@ export const EditProduct = () => {
     };
 
     if (objIsEqual(Object.fromEntries(Object.entries(product).filter(([key]) => key !== '_id')), data) && !editState) {
-      toast('Nothing to Update.')
-      return
+      toast('Nothing to Update.');
+      return;
     }
 
     if (validateProduct(data)) {
@@ -185,18 +184,21 @@ export const EditProduct = () => {
 
   return (
     <>
-      <main className={`py-6 md:px-10 px-5 dark:text-white ${isCreating ? 'opacity-10 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
+      <main className={`py-6 md:px-10 px-5 dark:text-white ${isCreating ? 'opacity-50 cursor-not-allowed [&_*]:cursor-not-allowed select-none' : ''}`}>
         <div className="flex items-center justify-between mb-12">
           <h1 className="text-2xl font-black uppercase">Edit Product</h1>
           {(editState || selectedImage) && (
-            <button onClick={() => {
-              setEditState(false)
-              setPhotoURL(product?.image || '');
-              setSelectedImage(null);
-              setUploadedImage('_');
-              formRef.current.photoURL.disabled = false
-              formRef.current.reset()
-            }} className="text-sm underline active:scale-[.98] transition-transform">
+            <button
+              onClick={() => {
+                setEditState(false);
+                setPhotoURL(product?.image || '');
+                setSelectedImage(null);
+                setUploadedImage('_');
+                formRef.current.photoURL.disabled = false;
+                formRef.current.reset();
+              }}
+              className="text-sm underline active:scale-[.98] transition-transform"
+            >
               Discard the Changes.
             </button>
           )}
@@ -329,7 +331,13 @@ export const EditProduct = () => {
             </ul>
 
             <button name="submit" className="bg-black py-2 w-full px-0 mt-6 text-white font-bold rounded active:scale-[.99] transition-transform dark:bg-dark dark:text-black">
-              Update Product
+              {isCreating ? (
+                <>
+                  <Spinner></Spinner> <span className="opacity-0 invisible pointer-events-none">Update Product</span>
+                </>
+              ) : (
+                'Update Product'
+              )}
             </button>
           </form>
         </div>
