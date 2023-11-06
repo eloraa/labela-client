@@ -76,7 +76,7 @@ export const Profile = () => {
       }
       setIsUpdating(true);
       const blob = new Blob([file], { type: file.type });
-      const storageRef = ref(storage, 'pfp-' + user.uid);
+      const storageRef = ref(storage, '/pfp/' + user.uid);
       uploadBytes(storageRef, blob)
         .then(snapshot => {
           getDownloadURL(snapshot.ref)

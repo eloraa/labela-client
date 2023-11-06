@@ -50,7 +50,7 @@ export const About = () => {
           src="/04-c.jpg"
           alt=""
           className="float-left mr-8 mb-8 
-  md:[shape-outside:polygon(0_10%,100%_10%,100%_100%,0%_100%)] mt-16 w-full md:w-[420px] object-cover max-md:order-1"
+  md:[clip-path:polygon(0_10%,100%_10%,100%_100%,0%_100%)] mt-16 w-full md:w-[420px] object-cover max-md:order-1"
         />
         <p className="text-justify font-black leading-[1] text-xl lg:text-4xl uppercase">
           Labela is your gateway to timeless elegance and contemporary style. With a curated collection of high-quality fashion and accessories, we&apos;re here to help you express your unique
